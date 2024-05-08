@@ -3,12 +3,18 @@ import pretty_midi
 import os
 # import pygame
 
+
 def play_midi(midi_path, sr=22050): # notebook only
+    if str(type(midi_path)) == "<class 'symusic.core.ScoreTick'>":
+        holder_path = "data/holder.mid"
+        midi_path.dump_midi(holder_path)
+        midi_path=holder_path
     fn = os.path.join(midi_path)
     midi_data = pretty_midi.PrettyMIDI(fn)
     # Fs = 22050*2
     audio_data = midi_data.synthesize(fs=sr)
     return ipd.Audio(audio_data, rate=sr)
+
 
 # def play_music(midi_filename): # in console
  
