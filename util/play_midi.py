@@ -9,6 +9,9 @@ def play_midi(midi_path, sr=22050): # notebook only
         holder_path = "data/holder.mid"
         midi_path.dump_midi(holder_path)
         midi_path=holder_path
+    elif type(midi_path) == pretty_midi.pretty_midi.PrettyMIDI:
+        audio_data = midi_path.synthesize(fs=sr)
+        return ipd.Audio(audio_data, rate=sr)
     fn = os.path.join(midi_path)
     midi_data = pretty_midi.PrettyMIDI(fn)
     # Fs = 22050*2
